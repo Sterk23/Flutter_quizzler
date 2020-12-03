@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -26,11 +27,12 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  List<String> questionList = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.',
+  List<Question> listOfQuestions = [
+    Question('You can lead a cow down stairs but not up stairs.',false),
+    Question('Approximately one quarter of human bones are in the feet.',true),
+    Question('A slug\'s blood is green.',true),
   ];
+
   List<bool> answer = [false, true, true];
   int questionNumber =0;
   @override
@@ -45,7 +47,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionList[questionNumber],
+                listOfQuestions[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -105,7 +107,7 @@ class _QuizPageState extends State<QuizPage> {
 
   void updateScore(bool ans) {
     setState(() {
-      if(ans == answer[questionNumber]) {
+      if(ans == listOfQuestions[questionNumber].questionAnswer) {
         scoreKeeper.add(Icon(
           Icons.check,
           color: Colors.green,
@@ -116,8 +118,11 @@ class _QuizPageState extends State<QuizPage> {
           color: Colors.red,
         ));
       }
-      if(questionNumber<3)
-      questionNumber++;
+      if(questionNumber<2) {
+        questionNumber++;
+      } else{
+      questionNumber=0;
+    }
       // questionList[questionNumber];
     });
 
