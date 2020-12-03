@@ -44,7 +44,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.listOfQuestions[questionNumber].questionText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -104,7 +104,7 @@ class _QuizPageState extends State<QuizPage> {
 
   void updateScore(bool ans) {
     setState(() {
-      if(ans == quizBrain.listOfQuestions[questionNumber].questionAnswer) {
+      if(ans == quizBrain.getCorrectAnswer()) {
         scoreKeeper.add(Icon(
           Icons.check,
           color: Colors.green,
@@ -115,7 +115,7 @@ class _QuizPageState extends State<QuizPage> {
           color: Colors.red,
         ));
       }
-        questionNumber++;
+        quizBrain.newQuestion();
 
       // questionList[questionNumber];
     });
